@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <accordion>
+        <accordion-group heading="{{issue.ttb}} | {{issue.company}} | TC {{issue.opsconsole}} | EON {{issue.eon}}" ng-repeat="issue in issues">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4">Submitted By: {{issue.submittedby}}</div>
+              <div class="col-md-4">SLA Start Time: {{issue.slastart}}</div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">Owner: {{issue.owner}}</div>
+              <div class="col-md-4">{{issue.domintl}}</div>
+            </div>
+            <div>Supporting: {{issue.supporting}}</div>
+            <div>Issue Information: {{issue.issueinfo}}</div>
+            <div class="row"><textarea class="col-md-8" readonly>{{issue.comments}}</textarea></div>
+            <div>Most Recent Note Date - Most Recent Note</div>
+          </div>
+        </accordion-issue>
+      </accordion>
+    </div>
+    <div class="col-md-4">
+      <div>{{CRUDTest}}</div>
+      <div>{{All}}</div>
+    </div>
+  </div>
+</div>
