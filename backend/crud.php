@@ -19,8 +19,15 @@
         echo $get_all_result;
       }
     }
+    return {
+      interface: function() {
+
+      }
+    }
   }
 
   session_start();
-  echo $_POST['payload'];
+  public tempCRUD = new CRUD;
+  public request = $_POST[]
+
 ?>

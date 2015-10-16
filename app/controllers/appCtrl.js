@@ -21,9 +21,5 @@
           issuecomments: 'Working this day and night'
         }
       ];
-      CRUD.getIssues(data)
-        .then(function(response) {
-          $scope.CRUDTest = response;
-        });
     });
 })();
