@@ -1,8 +1,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-8">
+      <!--- Dropdown Filter and Search Filter -->
       <accordion>
-        <accordion-group heading="{{issue.ttb}} | {{issue.company}} | TC {{issue.opsconsole}} | EON {{issue.eon}}" ng-repeat="issue in issues">
+        <accordion-group heading="{{issue.ttb}} | {{issue.company}} | TC {{issue.opsconsole}} | EON {{issue.eon}}" ng-repeat="ticket in tickets">
           <div class="container">
             <div class="row">
               <div class="col-md-4">Submitted By: {{issue.submittedby}}</div>

@@ -1,11 +1,14 @@
 (function(){
   angular.module("bradApp")
     .controller('AppController', function($scope, CRUD){
-      var data = '';
-      CRUD.option('all').
+      var request = {
+        query: 'all'
+      };
+      CRUD.option(request).
         then(function(response) {
           $scope.tickets = response;
         });
+      $scope.tickets = {};
       $scope.issues = [
         {
           ttb: 'TTB162829',
