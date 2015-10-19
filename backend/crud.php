@@ -1,4 +1,4 @@
-<?php
+<?php // Just the CRUD ma'am.
   class CRUD {
     public $response = '';
     function connectDB() {
@@ -7,36 +7,18 @@
         die('I just caint doo it Capn! [' . $db->connect_error . ']');
       } else {return $db;}
     }
-    public function results_to_JSON() {
-
-    }
-    public function create_select_statement($query) { // DON'T NEED THIS.  USE A ? PLACEHOLDER INSTEAD
-      $temp = '';
-      if($query == 'all'){
-        $temp = 'SELECT * FROM tickets';
-      }
-      return $temp;
-    }
     public function read($query) {
       $db = $this -> connectDB();
-      // $sql = $this->create_select_statement($query);
-      if($query != 'all') {
-        $statement = $db::prepare('SELECT ') //*****************************************************
-      } else {
-        $statement = $db::prepare('SELECT * FROM tickets');
+      $what = $query['what'];
+      $where = $query['where'];
+      $read = "SELECT $what FROM tickets WHERE $where";
+      $statement = $db -> prepare($read);
+      $statement -> execute();
+      $statement -> bind_result($ttb,$eon,$ops_console);
+      while($statement -> fetch()) {        // FLESH THIS OUT TO CYCLE THROUGH ALL RESULTS AND STORE THEM IN AN ARRAY
+        echo $ttb . ' + ' . $eon . ' + ' . $ops_console . ' - ';
       }
-      $statement = $db -> prepare($sql);
-      $statement->execute();
-      $statement->bind_result($ttb,$eon,$ops_console);
-      while($statement -> fetch()) {
-        echo $ttb . ' + ' . $eon . ' + ' . $ops_console;
-      }
+      return $result;
     }
   }
-
-  session_start();
-  $tempCRUD = new CRUD();
-  $tempQuery = $_POST['query'];
-  $tempCRUD -> read($tempQuery);
-
 ?>

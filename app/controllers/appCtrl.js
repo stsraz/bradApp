@@ -2,7 +2,13 @@
   angular.module("bradApp")
     .controller('AppController', function($scope, CRUD){
       var request = {
-        query: 'all'
+        1: {
+          type: 'read',
+          query: {
+            what: '*',
+            where: '1'
+          }
+        }
       };
       CRUD.option(request).
         then(function(response) {

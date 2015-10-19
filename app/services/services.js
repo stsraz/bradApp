@@ -3,7 +3,7 @@
     .factory('CRUD', function($http) {
       var postRequest = function(input) {
         var data = input;
-        return $http.post('backend/crud.php', data)
+        return $http.post('backend/crudOps.php', data)
           .then(function (response) {
             return response.data;
           });
