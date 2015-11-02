@@ -8,17 +8,16 @@
       } else {return $db;}
     }
     public function read($query) {
+      $result = [];
       $db = $this -> connectDB();
-      $what = $query['what'];
-      $where = $query['where'];
-      $read = "SELECT $what FROM tickets WHERE $where";
+      $read = "SELECT * FROM tickets WHERE ?";
       $statement = $db -> prepare($read);
+      $statement -> bind_param("s", $where);
+      $where = $query['where'];
       $statement -> execute();
-      $statement -> bind_result($ttb,$eon,$ops_console);
-      while($statement -> fetch()) {        // FLESH THIS OUT TO CYCLE THROUGH ALL RESULTS AND STORE THEM IN AN ARRAY
-        echo $ttb . ' + ' . $eon . ' + ' . $ops_console . ' - ';
-      }
-      return $result;
+      $result = $statement -> get_result();
+      $response = $result -> fetch_all(MYSQLI_ASSOC);
+      echo json_encode($response);
     }
   }
 ?>

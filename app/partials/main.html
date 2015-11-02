@@ -3,22 +3,22 @@
     <div class="col-md-8">
       <!--- Dropdown Filter and Search Filter -->
       <accordion>
-        <accordion-group heading="{{issue.ttb}} | {{issue.company}} | TC {{issue.opsconsole}} | EON {{issue.eon}}" ng-repeat="ticket in tickets">
+        <accordion-group heading="{{ticket.ttb}} | {{ticket.company}} | TC {{ticket.ops_console}} | EON {{ticket.eon}}" ng-repeat="ticket in tickets">
           <div class="container">
             <div class="row">
-              <div class="col-md-4">Submitted By: {{issue.submittedby}}</div>
-              <div class="col-md-4">SLA Start Time: {{issue.slastart}}</div>
+              <div class="col-md-4">Submitted By: {{ticket.submittedby}}</div>
+              <div class="col-md-4">SLA Start Time: {{ticket.slastart}}</div>
             </div>
             <div class="row">
-              <div class="col-md-4">Owner: {{issue.owner}}</div>
-              <div class="col-md-4">{{issue.domintl}}</div>
+              <div class="col-md-4">Owner: {{ticket.owner}}</div>
+              <div class="col-md-4">{{ticket.domintl}}</div>
             </div>
-            <div>Supporting: {{issue.supporting}}</div>
-            <div>Issue Information: {{issue.issueinfo}}</div>
-            <div class="row"><textarea class="col-md-8" readonly>{{issue.comments}}</textarea></div>
+            <div>Supporting: {{ticket.supporting}}</div>
+            <div>ticket Information: {{ticket.ticketinfo}}</div>
+            <div class="row"><textarea class="col-md-8" readonly>{{ticket.comments}}</textarea></div>
             <div>Most Recent Note Date - Most Recent Note</div>
           </div>
-        </accordion-issue>
+        </accordion>
       </accordion>
     </div>
     <div class="col-md-4">
