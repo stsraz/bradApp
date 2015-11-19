@@ -1,28 +1,44 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Brand</a>
+      </div>
+  </div>
+</nav>
+
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-8">
-      <!--- Dropdown Filter and Search Filter -->
       <accordion>
-        <accordion-group heading="{{ticket.ttb}} | {{ticket.company}} | TC {{ticket.ops_console}} | EON {{ticket.eon}}" ng-repeat="ticket in tickets">
+        <accordion-group heading="{{ticket.ttb}} | {{ticket.company_name}} | TC {{ticket.ops_console}} | EON {{ticket.eon}}" ng-repeat="ticket in tickets">
           <div class="container">
             <div class="row">
-              <div class="col-md-4">Submitted By: {{ticket.submittedby}}</div>
-              <div class="col-md-4">SLA Start Time: {{ticket.slastart}}</div>
+              <div class="col-md-2">Submitted By: </div>
+              <div class="col-md-2">{{ticket.submitted_by}}</div>
+              <div class="col-md-2">SLA Start Time: </div>
+              <div class="col-md-2">{{ticket.sla_start}}</div>
             </div>
             <div class="row">
-              <div class="col-md-4">Owner: {{ticket.owner}}</div>
-              <div class="col-md-4">{{ticket.domintl}}</div>
+              <div class="col-md-2">Owner: </div>
+              <div class="col-md-2">{{ticket.owner}}</div>
+              <div class="col-md-2">{{ticket.domintl}}</div>
             </div>
-            <div>Supporting: {{ticket.supporting}}</div>
-            <div>ticket Information: {{ticket.ticketinfo}}</div>
-            <div class="row"><textarea class="col-md-8" readonly>{{ticket.comments}}</textarea></div>
-            <div>Most Recent Note Date - Most Recent Note</div>
+            <div class="row">
+              <div class="col-md-2">Supporting: </div>
+              <div class="col-md-2">{{ticket.supporting}}</div>
+              <div class="col-md-2">Ticket Information: </div>
+              <div class="col-md-2">{{ticket.issue_info}}</div>
+              <div class="col-md-4 btn-group">
+                <!-- Comments Button pulls up modal with all comments -->
+                <button type="button" class="btn btn-default" ng-click="getComments($index)">Comments</button>
+              </div>
+            </div>
+            <div class="row">
+
+            </div>
           </div>
         </accordion>
       </accordion>
-    </div>
-    <div class="col-md-4">
-
     </div>
   </div>
 </div>
