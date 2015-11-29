@@ -1,7 +1,12 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Brand</a>
+        <a class="navbar-brand" ng-click="getTickets()">All TTBs</a>
+      </div>
+      <div>
+        <ul class="nav navbar-nav">
+          <li><a ng-click="addTTB()">Add TTB</a></li>
+        </ul>
       </div>
   </div>
 </nav>
@@ -17,24 +22,29 @@
               <div class="col-md-2">{{ticket.submitted_by}}</div>
               <div class="col-md-2">SLA Start Time: </div>
               <div class="col-md-2">{{ticket.sla_start}}</div>
+              <div class="col-md-2">Last Updated: </div>
+              <div class="col-md-2">{{ticket.updated}}</div>
             </div>
             <div class="row">
+              <br>
               <div class="col-md-2">Owner: </div>
               <div class="col-md-2">{{ticket.owner}}</div>
-              <div class="col-md-2">{{ticket.domintl}}</div>
-            </div>
-            <div class="row">
-              <div class="col-md-2">Supporting: </div>
-              <div class="col-md-2">{{ticket.supporting}}</div>
               <div class="col-md-2">Ticket Information: </div>
               <div class="col-md-2">{{ticket.issue_info}}</div>
-              <div class="col-md-4 btn-group">
-                <!-- Comments Button pulls up modal with all comments -->
-                <button type="button" class="btn btn-default" ng-click="getComments($index)">Comments</button>
-              </div>
             </div>
             <div class="row">
-
+              <br>
+              <div class="col-md-2">Supporting: </div>
+              <div class="col-md-2">{{ticket.supporting}}</div>
+            </div>
+            <div class="row">
+              <br>
+              <div class="col-md-2">{{ticket.domintl}}</div>
+              <div class="pull-right">
+                <!-- Comments Button pulls up modal with all comments -->
+                <button type="button" class="btn btn-primary" ng-click="getComments($index)">Comments</button>
+                <button type="button" class="btn btn-danger" ng-click="closeTTB($index)">Close TTB</button>
+              </div>
             </div>
           </div>
         </accordion>

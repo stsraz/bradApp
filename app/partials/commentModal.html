@@ -2,10 +2,14 @@
   <div class="modal-header">
     <div class="row">
       <div class="col-md-2"><h3 class="modal-title">{{ttb}}</h3></div>
-      <div class="col-md-10"><textarea class="form-control" rows="2"></textarea></div>
+      <div class="col-md-10"><textarea class="form-control" rows="2" ng-model="newComment"></textarea></div>
     </div>
     <div class="row">
-      <button class="btn btn-primary pull-right my-modal-btn" type="button" ng-click="add()">Add Comment</button>
+      <div class="pull-right">
+        <label class="my-modal-btn col-md-4" for="commentBy">Submitted By: </label>
+        <input class="my-modal-btn col-md-4" type="text" id="commentBy" ng-model="commentBy">
+        <button class="btn btn-primary my-modal-btn" type="button" ng-click="add()">Add Comment</button>
+      </div>
     </div>
   </div>
   <div class="modal-body">

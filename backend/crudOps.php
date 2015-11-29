@@ -7,12 +7,15 @@
     if($request['type'] == 'read') {
       $query = $request['query'];
       $result = $CRUD -> read($query);
-      echo $result;
     }
     if($request['type'] == 'create') {
       $query = $request['query'];
       $result = $CRUD -> create($query);
-      echo $result;
     }
+    if($request['type'] == 'update') {
+      $query = $request['query'];
+      $result = $CRUD -> update($query);
+    }
+    echo $result;
   }
 ?>

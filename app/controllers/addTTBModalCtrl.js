@@ -1,14 +1,12 @@
 (function(){
   angular.module("bradApp")
-    .controller('ModalInstanceCtrl', function($scope, $modalInstance, comments, ttb){
-      $scope.comments = comments;
-      $scope.ttb = ttb;
+    .controller('AddTTBModalCtrl', function($scope, $modalInstance, CRUD){
 
       $scope.close = function() {
         $modalInstance.close();
       };
       $scope.add = function() {
-        
+
       };
     });
 })();
