@@ -1,10 +1,31 @@
 <div>
   <div class="modal-header">
-
+    <p>Add TTB</p>
   </div>
   <div class="modal-body">
     <form>
-
+      <div class="row">
+        <div class="col-md-4">
+          <label for="ttb">TTB: </label>
+          <input name="ttb" type="text">
+        </div>
+        <div class="col-md-4">
+          <label for="eon">EON: </label>
+          <input name="eon" type="text">
+        </div>
+        <div class="col-md-4">
+          <label for="ops">Ops Console: </label>
+          <input name="ops" type="text">
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-4">
+          <label for="company">Company Name: </label>
+          <input name="company" type="text">
+        </div>
+      </div>
     </form>
   <div class="modal-footer row">
     <button class="btn btn-primary my-modal-btn" type="button" ng-click="add()">Add</button>
