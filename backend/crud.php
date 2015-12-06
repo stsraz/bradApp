@@ -32,14 +32,19 @@
       $read = '';
       $allColumns = 'ttb,eon,ops_console,company_name,submitted_by,sla_start,owner,domintl,supporting,issue_info,updated';
       $commentsColumns = 'ttb,comment,timestamp,submitted_by';
+      $nameColumns = 'name';
       switch($what) {
         case 'all':
           $read = "SELECT $allColumns FROM tickets WHERE closed = 'no'";
           break;
+        case 'companies':
+          $read = "SELECT $nameColumns FROM companies WHERE 1";
+          break;
+        case 'users':
+          $read = "SELECT $nameColumns FROM users WHERE 1";
+          break;
         case 'comments':
           $read = "SELECT $commentsColumns FROM comments WHERE 1";
-          break;
-        case 'search':
           break;
       }
       if($what == 'comments') {
@@ -67,9 +72,27 @@
           echo $error;
         }
       }
-
       if($what == 'tickets') {
+        $criteria = $query['criteria']['newTicket'];
+        $ttb = $criteria['ttb'];
+        $eon = $criteria['eon'];
+        $ops_console = $criteria['ops_console'];
+        $company_name = $criteria['company_name'];
+        $submitted_by = $criteria['submitted_by'];
+        $owner = $criteria['owner'];
+        $domintl = $criteria['domintl'];
+        $supporting = $criteria['supporting'];
+        $issue_info = $criteria['issue_info'];
 
+        $create = $this -> createStmt($what);
+
+        if($statement = $db -> prepare($create)) {
+          $statement->bind_param('sssssssss',$ttb,$eon,$ops_console,$company_name,$submitted_by,$owner,$domintl,$supporting,$issue_info);
+          $statement -> execute();
+        } else {
+          $error = $db -> errno . ' ' . $db -> error;
+          echo $error;
+        }
       }
     }
     public function createStmt($what) {
@@ -78,6 +101,7 @@
       $commentsColumns = 'ttb,comment,submitted_by';
       switch($what) {
         case 'tickets':
+          $create = "INSERT INTO $what ($allColumns) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
           break;
         case 'comments':
           $create = "INSERT INTO $what ($commentsColumns) VALUES (?, ?, ?)";

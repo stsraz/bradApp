@@ -1,34 +1,75 @@
 <div>
   <div class="modal-header">
-    <p>Add TTB</p>
+    <h1>Add Ticket</h1>
   </div>
   <div class="modal-body">
-    <form>
+    <div class="form-group">
       <div class="row">
         <div class="col-md-4">
           <label for="ttb">TTB: </label>
-          <input name="ttb" type="text">
+          <input class="form-control" name="ttb" type="text" ng-model="newTicket.ttb">
         </div>
         <div class="col-md-4">
           <label for="eon">EON: </label>
-          <input name="eon" type="text">
+          <input class="form-control" name="eon" type="text" ng-model="newTicket.eon">
         </div>
         <div class="col-md-4">
-          <label for="ops">Ops Console: </label>
-          <input name="ops" type="text">
+          <label for="ops_console">Ops Console: </label>
+          <input class="form-control" name="ops_console" type="text" ng-model="newTicket.ops_console">
         </div>
       </div>
       <br>
       <div class="row">
-        <div class="col-md-1"></div>
         <div class="col-md-4">
           <label for="company">Company Name: </label>
-          <input name="company" type="text">
+          <input class="form-control" name="company" list="companies" ng-model="newTicket.company_name">
+          <datalist id="companies">
+            <option ng-repeat="company in companies" value="{{company.name}}">{{company.name}}</option>
+          </datalist>
+        </div>
+        <div class="col-md-4">
+          <label for="domintl">Select One:</label>
+          <select class="form-control" name="domintl" ng-model="newTicket.domintl">
+            <option value=""></option>
+            <option value="domestic">Domestic</option>
+            <option value="international">International</option>
+          </select>
         </div>
       </div>
-    </form>
+      <br>
+      <div class="row">
+        <div class="col-md-4">
+          <label for="submitted_by">Submitted By:</label>
+          <input class="form-control" name="submitted_by" list="users" ng-model="newTicket.submitted_by">
+          <datalist id="users">
+            <option ng-repeat="user in users" value="{{user.name}}">{{user.name}}</option>
+          </datalist>
+        </div>
+        <div class="col-md-4">
+          <label for="owner">Owner:</label>
+          <input class="form-control" name="owner" list="users" ng-model="newTicket.owner">
+          <datalist id="users">
+            <option ng-repeat="user in users" value="{{user.name}}">{{user.name}}</option>
+          </datalist>
+        </div>
+        <div class="col-md-4">
+          <label for="supporting">Supporting:</label>
+          <input class="form-control" name="supporting" list="users" ng-model="newTicket.supporting">
+          <datalist id="users">
+            <option ng-repeat="user in users" value="{{user.name}}">{{user.name}}</option>
+          </datalist>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="container-fluid">
+          <label for="issue_info">Description:</label>
+          <textarea class="form-control" name="issue_info" rows="5" ng-model="newTicket.issue_info"></textarea>
+        </div>
+      </div>
+    </div>
   <div class="modal-footer row">
-    <button class="btn btn-primary my-modal-btn" type="button" ng-click="add()">Add</button>
+    <button class="btn btn-primary my-modal-btn" type="button" ng-click="add(newTicket)">Add</button>
     <button class="btn btn-primary my-modal-btn" type="button" ng-click="close()">Close</button>
   </div>
 </div>

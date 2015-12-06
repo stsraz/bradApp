@@ -1,4 +1,8 @@
-.my-modal-btn {
+.my-modal-padding {
   margin-top: 20px;
+  margin-right: 10px;
+}
+.comment-textarea {
+  margin-left: 10px;
   margin-right: 10px;
 }

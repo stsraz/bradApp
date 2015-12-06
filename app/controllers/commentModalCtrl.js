@@ -3,7 +3,11 @@
     .controller('CommentModalCtrl', function($scope, $modalInstance, CRUD, comments, ttb){
       $scope.comments = comments;
       $scope.ttb = ttb;
-
+      $scope.users = [];
+      CRUD.users()
+        .then(function(response) {
+          $scope.users = response;
+        });
       $scope.close = function() {
         $modalInstance.close();
       };
@@ -20,9 +24,18 @@
                 }
               }
           }];
+          // Check for commentBy in users.  If it doesn't exist, add it to the database.
+          for(var i = 0; i<users.length; i++) {
+            if($scope.commentBy == users[i]) {
+              break;  // *********************** THIS ISN'T FINISHED!!!
+            }
+          }
           CRUD.option(request).
             then(function(response) {
-              $scope.close();
+              CRUD.comments(ttb)
+                .then(function(response) {
+                  $scope.comments = response;
+                })
             });
         } else {alert('Please enter values in all fields before submitting.')}
       };

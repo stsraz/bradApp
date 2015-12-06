@@ -1,45 +1,20 @@
 (function(){
   angular.module("bradApp")
     .controller('AppController', function($scope, CRUD, $modal){
-      // Initialize Variables and Arrays
+      // Initialize Variables
       $scope.tickets = [];
+      CRUD.tickets()
+        .then(function(response) {
+          $scope.tickets = response;
+        });
       $scope.comments = [];
       $scope.newComment;
       $scope.commentBy;
-      // Pull Active Tickets
-      $scope.getTickets = function() {
-        // Request object for post ops
-        var request = [
-          {
-            type: 'read',
-            query: {
-              what: 'all', // comments   single-ttb  search
-              criteria: {} // SQL search filters
-            }
-          }
-        ];
-        // Automagically Pull Active TTBs on page load.
-        CRUD.option(request).
-          then(function(response) {
-            $scope.tickets = response;
-          });
-      };
-      // Get active tickets on initial load.
-      $scope.getTickets();
       // Retrieve Comments and Display in Modal
       $scope.getComments = function(panel) {
         var ttb = $scope.tickets[panel]['ttb'];
-        var request = [
-          {
-            type: 'read',
-            query: {
-              what: 'comments',
-              criteria: ttb
-            }
-          }
-        ];
         //  Call to CRUD to retrieve comments and save.
-        CRUD.option(request).
+        CRUD.comments(ttb).
           then(function(response) {
             $scope.comments = response;
             var modalInstance = $modal.open({
@@ -78,7 +53,10 @@
         if(closeTTB) {
           CRUD.option(request).
             then(function(response) {
-              $scope.getTickets();
+              CRUD.tickets()
+                .then(function(response) {
+                  $scope.tickets = response;
+                });
             });
         }
       };
@@ -89,6 +67,12 @@
           controller: 'AddTTBModalCtrl',
           size: 'lg',
           resolve: {}
+        });
+        modalInstance.result.then(function(){
+          CRUD.tickets()
+            .then(function(response) {
+              $scope.tickets = response;
+            });
         });
       };
     });
