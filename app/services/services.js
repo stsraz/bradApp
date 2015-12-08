@@ -77,5 +77,22 @@
           return getComments(ttb);
         }
       };
+    })
+    .factory('myTools', function() {
+      var checkArray = function(testString,testArray) {
+        var inArray = false;
+        // Check for testString in testArray.  Return false if not.
+        for(var i = 0; i<testArray.length; i++) {
+          if(testString == testArray[i]) {
+            inArray = true;
+          }
+        }
+        return inArray;
+      };
+      return {
+        checkArray: function(testString,testArray) {
+          return checkArray(testString,testArray);
+        }
+      };
     });
 })();

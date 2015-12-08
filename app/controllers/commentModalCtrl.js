@@ -1,6 +1,6 @@
 (function(){
   angular.module("bradApp")
-    .controller('CommentModalCtrl', function($scope, $modalInstance, CRUD, comments, ttb){
+    .controller('CommentModalCtrl', function($scope, $modalInstance, CRUD, myTools, comments, ttb){
       $scope.comments = comments;
       $scope.ttb = ttb;
       $scope.users = [];
@@ -24,11 +24,18 @@
                 }
               }
           }];
-          // Check for commentBy in users.  If it doesn't exist, add it to the database.
-          for(var i = 0; i<users.length; i++) {
-            if($scope.commentBy == users[i]) {
-              break;  // *********************** THIS ISN'T FINISHED!!!
-            }
+          var checkName = myTools.checkArray($scope.commentBy,users);
+          if(!checkName) {
+            var request = [{
+              type: 'create',
+              query: {
+                what: 'users',
+                criteria: {
+                  name: $scope.commentBy
+                }
+              }
+            }];
+            alert(request);  //////////////  IT"S WORKING
           }
           CRUD.option(request).
             then(function(response) {

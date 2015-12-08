@@ -1,6 +1,6 @@
 (function(){
   angular.module("bradApp")
-    .controller('AppController', function($scope, CRUD, $modal){
+    .controller('AppController', function($scope, CRUD, myTools, $modal){
       // Initialize Variables
       $scope.tickets = [];
       CRUD.tickets()
