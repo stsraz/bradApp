@@ -38,10 +38,10 @@
           $read = "SELECT $allColumns FROM tickets WHERE closed = 'no'";
           break;
         case 'companies':
-          $read = "SELECT $nameColumns FROM companies WHERE 1";
+          $read = "SELECT $nameColumns FROM companies WHERE 1 ORDER BY name";
           break;
         case 'users':
-          $read = "SELECT $nameColumns FROM users WHERE 1";
+          $read = "SELECT $nameColumns FROM users WHERE 1 ORDER BY name";
           break;
         case 'comments':
           $read = "SELECT $commentsColumns FROM comments WHERE 1";
@@ -87,7 +87,20 @@
         $create = $this -> createStmt($what);
 
         if($statement = $db -> prepare($create)) {
-          $statement->bind_param('sssssssss',$ttb,$eon,$ops_console,$company_name,$submitted_by,$owner,$domintl,$supporting,$issue_info);
+          $statement -> bind_param('sssssssss',$ttb,$eon,$ops_console,$company_name,$submitted_by,$owner,$domintl,$supporting,$issue_info);
+          $statement -> execute();
+        } else {
+          $error = $db -> errno . ' ' . $db -> error;
+          echo $error;
+        }
+      }
+      if($what == 'users') {
+        $name = $query['criteria']['name'];
+
+        $create = $this->createStmt($what);
+
+        if($statement = $db -> prepare($create)) {
+          $statement -> bind_param('s',$name);
           $statement -> execute();
         } else {
           $error = $db -> errno . ' ' . $db -> error;
@@ -99,12 +112,16 @@
       $create = '';
       $allColumns = 'ttb,eon,ops_console,company_name,submitted_by,owner,domintl,supporting,issue_info';
       $commentsColumns = 'ttb,comment,submitted_by';
+      $nameColumns = 'name';
       switch($what) {
         case 'tickets':
           $create = "INSERT INTO $what ($allColumns) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
           break;
         case 'comments':
           $create = "INSERT INTO $what ($commentsColumns) VALUES (?, ?, ?)";
+          break;
+        case 'users':
+          $create = "INSERT INTO $what ($nameColumns) VALUES (?)";
           break;
       }
       return $create;

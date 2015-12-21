@@ -1,6 +1,7 @@
 (function(){
   angular.module("bradApp")
     .factory('CRUD', function($http) {
+      // This needs to be refactored.  Badly.  But it works.
       var postRequest = function(input) {
         var data = input;
         return $http.post('backend/crudOps.php', data)
@@ -59,8 +60,26 @@
         var this_request = postRequest(request);
         return this_request;
       }
+      var toDB = function(what, yeah) {
+        switch (what) {
+          case 'users':
+          case 'companies':
+            var request = [{
+              type: 'create',
+              query: {
+                what: what,
+                criteria: {
+                  name: yeah
+                }
+              }
+            }];
+            break;
+        }
+        var this_request = postRequest(request);
+        return this_request;
+      }
       return {
-        // Need to rename post for clarity
+        // Need to rename option to post for clarity
         option: function(input) {
           return postRequest(input);
         },
@@ -75,15 +94,24 @@
         },
         comments: function(ttb) {
           return getComments(ttb);
+        },
+        addToDB: function(what, yeah) {
+          // what is the type, yeah is the thing
+          // WHAT?!?! YEAH!!!
+          return toDB(what, yeah);
         }
       };
     })
+    // This is not necessarily needed at the moment, but it works.
     .factory('myTools', function() {
       var checkArray = function(testString,testArray) {
+        var lcase = testString.toLowerCase();
         var inArray = false;
         // Check for testString in testArray.  Return false if not.
         for(var i = 0; i<testArray.length; i++) {
-          if(testString == testArray[i]) {
+          arrayIndex = testArray[i].name;
+          arraylcase = arrayIndex.toLowerCase();
+          if(lcase == arraylcase) {
             inArray = true;
           }
         }
@@ -92,6 +120,25 @@
       return {
         checkArray: function(testString,testArray) {
           return checkArray(testString,testArray);
+        }
+      };
+    })
+    // A service to validate user inputs.
+    .factory('validationStation', function() {
+      var checkTicket = function(inputObject) {
+        // TTB
+
+        // Company Name - with Name Check
+        // EON
+        // Ops Console
+        // Submitted By - with Name Check
+        // Owner  - with Name Check
+        // Supporting - with Name Check
+        // Ticket Notes
+      };
+      return {
+        ticket: function(inputObject) {
+          return checkTicket(inputObject);
         }
       };
     });

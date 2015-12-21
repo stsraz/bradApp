@@ -24,25 +24,22 @@
                 }
               }
           }];
-          var checkName = myTools.checkArray($scope.commentBy,users);
-          if(!checkName) {
-            var request = [{
-              type: 'create',
-              query: {
-                what: 'users',
-                criteria: {
-                  name: $scope.commentBy
-                }
-              }
-            }];
-            alert(request);  //////////////  IT"S WORKING
-          }
-          CRUD.option(request).
-            then(function(response) {
+          CRUD.option(request)
+            .then(function() {
               CRUD.comments(ttb)
                 .then(function(response) {
                   $scope.comments = response;
-                })
+                  var checkName = myTools.checkArray($scope.commentBy,$scope.users);
+                  if(!checkName) {
+                    CRUD.addToDB('users', $scope.commentBy)
+                      .then(function(){
+                        CRUD.users()
+                          .then(function(response) {
+                            $scope.users = response;
+                          });
+                      });
+                  }
+                });
             });
         } else {alert('Please enter values in all fields before submitting.')}
       };
