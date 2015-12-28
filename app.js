@@ -1,5 +1,5 @@
 (function(){
-  angular.module('bradApp', ['ui.bootstrap','ngRoute'], function($httpProvider) {
+  angular.module('bradApp', ['ui.bootstrap','ngRoute','ngMessages'], function($httpProvider) {
     // Use x-www-form-urlencoded Content-Type
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
@@ -35,7 +35,7 @@
         else if(value !== undefined && value !== null)
           query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
       }
-        
+
       return query.length ? query.substr(0, query.length - 1) : query;
     };
 

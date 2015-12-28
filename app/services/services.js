@@ -123,7 +123,7 @@
         }
       };
     })
-    // A service to validate user inputs.
+    // A service to validate user inputs.  MOVING TO DIRECTIVE.  THIS IS INVALID.
     .factory('validationStation', function() {
       var checkTicket = function(inputObject) {
         // TTB
