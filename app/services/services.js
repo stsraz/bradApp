@@ -1,6 +1,6 @@
 (function(){
   angular.module("bradApp")
-    .factory('CRUD', function($http) {
+    .factory('CRUD', function($http,$q) {
       // This needs to be refactored.  Badly.  But it works.
       var postRequest = function(input) {
         var data = input;
@@ -60,6 +60,21 @@
         var this_request = postRequest(request);
         return this_request;
       }
+      // Need to finish this after rewriting CRUD
+      var searchDB = function(column,filter) {
+        var request = [{
+          type: 'read',
+          query: {
+            what: 'search',
+            criteria: {
+              column: column,
+              filter: filter
+            }
+          }
+        }];
+        var this_request = postRequest(request);
+        return this_request;
+      }
       var toDB = function(what, yeah) {
         switch (what) {
           case 'users':
@@ -95,6 +110,9 @@
         comments: function(ttb) {
           return getComments(ttb);
         },
+        searchFor: function(column,filter) {
+          return searchDB(column,filter);
+        },
         addToDB: function(what, yeah) {
           // what is the type, yeah is the thing
           // WHAT?!?! YEAH!!!
@@ -123,23 +141,4 @@
         }
       };
     })
-    // A service to validate user inputs.  MOVING TO DIRECTIVE.  THIS IS INVALID.
-    .factory('validationStation', function() {
-      var checkTicket = function(inputObject) {
-        // TTB
-
-        // Company Name - with Name Check
-        // EON
-        // Ops Console
-        // Submitted By - with Name Check
-        // Owner  - with Name Check
-        // Supporting - with Name Check
-        // Ticket Notes
-      };
-      return {
-        ticket: function(inputObject) {
-          return checkTicket(inputObject);
-        }
-      };
-    });
 })();

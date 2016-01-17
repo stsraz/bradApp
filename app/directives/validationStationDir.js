@@ -1,22 +1,25 @@
 (function() {
   angular.module("bradApp")
-    .directive('validationStation', function(CRUD) {
+    .directive('validationStation', function(CRUD, $q) {
       return {
         require: 'ngModel',
+        restrict: 'A',
         link: function (scope, element, attrs, ngModel) {
-          var valType = attrs.validationType;
-
-
-          function ttbExists(bool) {
-            ngModel.$setValidity('recordChecking', bool);
+          // Still working on Validation, not working, need to add async validation as well.
+          ngModel.$asyncValidators.duplicate = function(modelValue,viewValue) {
+            var value = modelValue || viewValue;
+            return CRUD.searchFor(attrs.name,value)
+              .then(function(response) {
+                if(response.length != 0) {
+                  return $q.reject('duplicate');
+                } else {
+                  return $q.resolve('not');
+                }
+              },function() {
+                return $q.reject('error');
+              });
           }
-
-          ngModel.$parsers.push(function(value) {
-            if(!value || value.length ==0) {return;}
-
-            CRUD.checkDB()
-          })
-        }
-      }
+        } // End Link
+      } // End Return
     });
 })();

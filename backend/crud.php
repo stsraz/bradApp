@@ -25,7 +25,7 @@
         echo $error;
       }
       $result = $statement -> get_result();
-      $response = $result -> fetch_all(MYSQLI_ASSOC);
+      $response = $result -> fetch_all(MYSQLI_ASSOC); 
       echo json_encode($response);
     }
     public function readStmt($what, $criteria) {
@@ -45,6 +45,11 @@
           break;
         case 'comments':
           $read = "SELECT $commentsColumns FROM comments WHERE 1";
+          break;
+        case 'search':
+          $column = $criteria['column'];
+          $filter = $criteria['filter'];
+          $read = "SELECT $column FROM tickets WHERE $column = $filter";
           break;
       }
       if($what == 'comments') {

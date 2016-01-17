@@ -6,12 +6,26 @@
 
   <div class="modal-body">
 
-    <form name="addTTB" ng-submit="submitTTB(newTicket.$valid)" novalidate>
+    <form name="addTTBForm" novalidate>
 
       <div class="row form-group">
         <div class="col-md-4">
           <label for="ttb">TTB: </label>
-          <input class="form-control" name="ttb" type="text" ng-model="newTicket.ttb" required>
+          <div>
+            <input
+              class="form-control"
+              name="ttb"
+              type="text"
+              ng-model="newTicket.ttb"
+              ng-model-options="{ updateOn: 'blur' }"
+              duplicate
+              required
+              validation-station
+             />
+            <div ng-messages="addTTBForm.ttb.$error" ng-show="addTTBForm.ttb.$touched" ng-messages-multiple>
+                <div ng-messages-include="app/partials/messages.html"></div>
+            </div>
+          </div>
         </div>
         <div class="col-md-4">
           <label for="eon">EON: </label>
@@ -83,7 +97,7 @@
   </div> <!-- Modal Body -->
 
   <div class="modal-footer row">
-    <button class="btn btn-primary my-modal-btn" type="button" ng-click="add(newTicket)">Add</button>
+    <button class="btn btn-primary my-modal-btn" type="button" ng-click="submitTTB(newTicket.$valid)">Submit</button>
     <button class="btn btn-primary my-modal-btn" type="button" ng-click="close()">Close</button>
   </div>
 
